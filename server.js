@@ -56,6 +56,7 @@ function createApp() {
   app.use('/games', express.static(path.join(__dirname, 'games')));
   app.use('/core', express.static(path.join(__dirname, 'core')));
   app.use('/vendor/three', express.static(path.join(__dirname, 'node_modules/three/build')));
+  app.use('/vendor/three-examples', express.static(path.join(__dirname, 'node_modules/three/examples/jsm')));
 
   app.get('/api/session', async (req, res) => {
     const lanAddress = getLanAddress();
@@ -86,15 +87,29 @@ function attachRelay(server) {
     }
   }
 
+  function broadcastPresence() {
+    broadcastToDisplays({ type: 'presence', players: [...controllers.keys()] });
+  }
+
   wss.on('connection', (ws, req) => {
     const url = new URL(req.url, 'https://placeholder');
     const role = url.searchParams.get('role');
 
     if (role === 'display') {
       displays.add(ws);
+      ws.send(JSON.stringify({ type: 'presence', players: [...controllers.keys()] }));
+      ws.on('message', (raw) => {
+        let message;
+        try { message = JSON.parse(raw); } catch { return; }
+        if (message.type !== 'feedback') return;
+        const target = controllers.get((message.slot ?? 0) + 1);
+        if (target && target.readyState === target.OPEN) target.send(JSON.stringify(message));
+      });
       ws.on('close', () => displays.delete(ws));
       return;
     }
+
+    if (role !== 'controller') { ws.close(); return; }
 
     // role === 'controller'
     const slot = nextFreeSlot();
@@ -107,6 +122,7 @@ function attachRelay(server) {
     controllers.set(slot, ws);
     ws.send(JSON.stringify({ type: 'welcome', player: slot }));
     broadcastToDisplays({ type: 'player-joined', player: slot });
+    broadcastPresence();
 
     ws.on('message', (raw) => {
       let message;
@@ -115,14 +131,15 @@ function attachRelay(server) {
       } catch {
         return;
       }
-      if (message.type === 'input') {
-        broadcastToDisplays({ type: 'input', player: slot, ...message });
+      if (message.type === 'input' || message.type === 'command') {
+        broadcastToDisplays({ ...message, player: slot });
       }
     });
 
     ws.on('close', () => {
       controllers.delete(slot);
       broadcastToDisplays({ type: 'player-left', player: slot });
+      broadcastPresence();
     });
   });
 }

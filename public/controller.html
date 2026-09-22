@@ -1,81 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-  <title>WiiPhone Controller</title>
-  <link rel="stylesheet" href="/styles.css" />
-  <style>
-    body {
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
-      touch-action: none;
-      user-select: none;
-    }
-    #status {
-      color: var(--text-dim);
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-    #status.connected { color: var(--ok); }
-    #player-badge {
-      font-size: 44px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    #enable {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      padding: 18px 32px;
-      font-size: 17px;
-      font-weight: 700;
-      box-shadow: 0 8px 24px rgba(255, 77, 109, 0.35);
-    }
-    #wheel {
-      width: min(70vw, 260px);
-      height: min(70vw, 260px);
-      border-radius: 50%;
-      border: 6px solid var(--border);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    #wheel .needle {
-      position: absolute;
-      width: 6px;
-      height: 42%;
-      background: var(--accent-2);
-      top: 8%;
-      left: calc(50% - 3px);
-      border-radius: 4px;
-      transform-origin: bottom center;
-    }
-    #hint {
-      color: var(--text-dim);
-      font-size: 13px;
-      max-width: 260px;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Controle — WiiPhone</title>
+  <link rel="stylesheet" href="/controller.css">
 </head>
 <body>
-  <div id="player-badge">WiiPhone</div>
-  <div id="status">not connected</div>
-
-  <div id="wheel"><div class="needle" id="needle"></div></div>
-  <p id="hint">Hold the phone flat, screen up. Tilt left and right to steer.</p>
-
-  <button id="enable">Enable motion sensors</button>
-
-  <script src="/core/motion.js"></script>
+  <header><b id="player-badge">WiiPhone</b><span id="status" role="status">Pronto para conectar</span><a href="/">⌂ Menu</a></header>
+  <main>
+    <section id="setup">
+      <h1>Seu celular é o volante.</h1>
+      <p>Segure de lado, com a tela voltada para cima. Deixe o direcional à esquerda e os botões 1 e 2 à direita.</p>
+      <button id="enable">Ativar sensores e conectar</button>
+    </section>
+    <section id="remote" hidden aria-label="Controle de corrida">
+      <div class="dpad" aria-label="Escolher piloto e usar item">
+        <button data-button="up" aria-label="Cima">▲</button>
+        <button data-button="left" aria-label="Esquerda">◀</button>
+        <button data-button="right" aria-label="Direita e usar item">▶<small>ITEM</small></button>
+        <button data-button="down" aria-label="Baixo">▼</button>
+      </div>
+      <div class="center"><span class="eyebrow">MARIO KART</span><div id="wheel">◉</div><p id="hint">Nivele o celular para calibrar</p><button id="recenter">− Recalibrar</button></div>
+      <div class="actions"><button data-button="A" class="drift">A<small>DRIFT</small></button><button data-button="1">1<small>FREIO</small></button><button data-button="2" class="gas">2<small>ACELERAR / OK</small></button></div>
+    </section>
+  </main>
+  <footer>Incline para virar · segure A nas curvas · solte para ganhar turbo</footer>
   <script src="/controller.js"></script>
 </body>
 </html>

@@ -26,8 +26,7 @@ npm start
 
 1. Abra **https://localhost:8443/** no computador.
 2. Escaneie o QR code exibido na tela com a câmera do celular.
-3. Aceite o certificado local autoassinado, toque em **Enable motion
-   sensors** e permita o acesso aos sensores de movimento.
+3. Aceite o certificado local autoassinado, toque em **Ativar sensores e conectar** e permita o acesso aos sensores de movimento.
 4. Escolha um jogo e incline o celular para jogar.
 
 **Sensores de movimento exigem HTTPS.** Por isso o servidor gera um
@@ -40,7 +39,7 @@ Construído aos poucos, um jogo por vez.
 
 | Jogo | Como jogar | Jogadores |
 | --- | --- | --- |
-| 🏎️ **[Mario Kart](games/mario-kart/README.md)** | Incline o celular para virar. Aceleração automática, pegue as faixas de boost na pista. | 1 humano + 3 CPU |
+| 🏎️ **[Mario Kart](games/mario-kart/README.md)** | Incline o celular para virar. Segure 2 para acelerar, derrape e use itens. | 1 humano + 7 CPU |
 
 Mais jogos estão a caminho.
 
@@ -51,7 +50,7 @@ flowchart TD
     phone["📱 Navegador do celular<br/>lê a inclinação via deviceorientation<br/>public/controller.js"]
     relay["🔀 Relay Node + WebSocket<br/>atribui slots de jogador, encaminha input<br/>server.js"]
     browser["🖥 Navegador do computador<br/>renderiza o jogo com Three.js<br/>games/*/game.js"]
-    phone -- "direção, ~20/s" --> relay
+    phone -- "orientação e botões, ~30/s" --> relay
     relay -- "marcado por slot de jogador" --> browser
 ```
 
@@ -60,8 +59,7 @@ flowchart TD
   e faz o relay das mensagens WebSocket entre os celulares e a aba do jogo.
 - **`public/`** — o menu (QR code + lista de jogos) e a página do
   controlador no celular.
-- **`core/motion.js`** — utilitário compartilhado que transforma o ângulo
-  bruto de inclinação do celular num valor de direção calibrado e suavizado.
+- **`core/`** — orientação, direção calibrada, áudio e adaptação do relay para o jogo.
 - **`games/`** — uma pasta por jogo. Cada jogo é uma cena Three.js
   independente que lê o input dos jogadores via relay WebSocket.
 
@@ -71,7 +69,9 @@ flowchart TD
 WiiPhone/
 ├── server.js              # HTTPS + relay WebSocket
 ├── core/
-│   └── motion.js           # inclinação do celular → direção
+│   ├── net.js              # adaptação do relay para o jogo
+│   ├── orientation.js      # orientação do celular
+│   └── wheel-steering.js   # direção calibrada
 ├── public/
 │   ├── menu.html/.js        # QR code + seletor de jogos
 │   └── controller.html/.js  # a página que o celular carrega
@@ -96,10 +96,15 @@ navegador automaticamente.
 
 ## Créditos
 
-Inspirado no conceito do [pattssun/OpenWii](https://github.com/pattssun/OpenWii)
-— transformar um celular em um controle de movimento estilo Wii para jogos
-no navegador. Este projeto é uma implementação independente, escrita do
-zero, com arquitetura e código próprios.
+O Mario Kart foi adaptado do [pattssun/OpenWii](https://github.com/pattssun/OpenWii),
+incluindo estádio, pilotos procedurais, lógica de corrida, interface, imagens de
+itens e áudio sintetizado da versão pública. O WiiPhone mantém seu servidor
+HTTPS/WebSocket e adapta o controle do celular. A licença MIT original e as
+fontes das imagens estão em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+As seis imagens dos itens e a textura de grama estão incluídas localmente.
+Os modelos, fontes e gravações do jogo original usados no vídeo da referência
+não estão no repositório público; esta versão usa os modelos procedurais dele.
 
 ## Licença
 

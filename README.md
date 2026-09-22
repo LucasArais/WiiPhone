@@ -25,7 +25,7 @@ npm start
 
 1. Open **https://localhost:8443/** on your computer.
 2. Scan the QR code shown on screen with your phone's camera.
-3. Accept the local self-signed certificate, tap **Enable motion sensors**,
+3. Accept the local self-signed certificate, tap **Ativar sensores e conectar**,
    and allow motion access when prompted.
 4. Pick a game and tilt your phone to play.
 
@@ -38,7 +38,7 @@ Built one at a time, game by game.
 
 | Game | How to play | Players |
 | --- | --- | --- |
-| 🏎️ **[Mario Kart](games/mario-kart/README.md)** | Tilt your phone to steer. Auto-accelerate, hit dash pads for a boost. | 1 human + 3 CPU |
+| 🏎️ **[Mario Kart](games/mario-kart/README.md)** | Tilt your phone to steer. Hold 2 to accelerate, drift and use items. | 1 human + 7 CPU |
 
 More games are on the way.
 
@@ -49,7 +49,7 @@ flowchart TD
     phone["📱 Phone browser<br/>reads tilt via deviceorientation<br/>public/controller.js"]
     relay["🔀 Node + WebSocket relay<br/>assigns player slots, forwards input<br/>server.js"]
     browser["🖥 Computer browser<br/>renders the game with Three.js<br/>games/*/game.js"]
-    phone -- "steering, ~20/s" --> relay
+    phone -- "orientation and buttons, ~30/s" --> relay
     relay -- "tagged by player slot" --> browser
 ```
 
@@ -58,8 +58,7 @@ flowchart TD
   and relays WebSocket messages between phones and the game tab.
 - **`public/`** — the menu (QR code + game list) and the phone controller
   page.
-- **`core/motion.js`** — shared helper that turns a phone's raw tilt angle
-  into a calibrated, smoothed steering value.
+- **`core/`** — orientation decoding, calibrated steering, audio and game relay adapter.
 - **`games/`** — one folder per game. Each game is a self-contained Three.js
   scene that reads player input from the WebSocket relay.
 
@@ -69,7 +68,9 @@ flowchart TD
 WiiPhone/
 ├── server.js              # HTTPS + WebSocket relay
 ├── core/
-│   └── motion.js           # shared phone-tilt → steering helper
+│   ├── net.js              # game adapter for the WebSocket relay
+│   ├── orientation.js      # device orientation decoding
+│   └── wheel-steering.js   # calibrated steering
 ├── public/
 │   ├── menu.html/.js        # QR code + game picker
 │   └── controller.html/.js  # the page the phone loads
@@ -94,10 +95,15 @@ browser.
 
 ## Credits
 
-Inspired by the concept behind [pattssun/OpenWii](https://github.com/pattssun/OpenWii)
-— turning a phone into a Wii-style motion remote for browser games. This
-project is an independent implementation, written from scratch with its own
-architecture and code.
+Mario Kart is adapted from [pattssun/OpenWii](https://github.com/pattssun/OpenWii),
+including its public stadium, procedural racers, race logic, HUD, item artwork
+and synthesized audio. WiiPhone provides its HTTPS/WebSocket relay and adapted
+phone controls. Full upstream MIT notice and artwork sources are preserved in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+The six item images and turf texture are included locally. The original-game
+models, fonts and recordings from the upstream video are not in its public
+repository; this build uses the complete public procedural version.
 
 ## License
 

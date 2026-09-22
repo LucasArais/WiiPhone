@@ -20,6 +20,9 @@ async function init() {
 
   ws.addEventListener('message', (event) => {
     const msg = JSON.parse(event.data);
+    if (msg.type === 'presence') {
+      slots.forEach((el, player) => el.classList.toggle('active', msg.players.includes(player)));
+    }
     if (msg.type === 'player-joined' && slots[msg.player]) {
       slots[msg.player].classList.add('active');
     }

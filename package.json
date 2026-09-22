@@ -8,7 +8,10 @@
     "node": ">=18"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test:unit": "node --test games/mario-kart/*.test.mjs",
+    "test:kart-browser": "node tests/kart-browser.mjs",
+    "test:kart-phone": "node tests/kart-phone.mjs"
   },
   "license": "MIT",
   "dependencies": {
@@ -16,7 +19,10 @@
     "open": "^10.1.0",
     "qrcode": "^1.5.4",
     "selfsigned": "^2.4.1",
-    "three": "^0.169.0",
+    "three": "^0.185.1",
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
   }
 }
