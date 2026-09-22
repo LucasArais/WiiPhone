@@ -1,0 +1,22 @@
+{
+  "name": "wiiphone",
+  "version": "0.1.0",
+  "description": "Turn your phone into a motion controller for browser games. No app, no extra hardware.",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "open": "^10.1.0",
+    "qrcode": "^1.5.4",
+    "selfsigned": "^2.4.1",
+    "three": "^0.169.0",
+    "ws": "^8.18.0"
+  }
+}

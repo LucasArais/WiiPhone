@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mario Kart — WiiPhone</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    { "imports": { "three": "/vendor/three/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div id="hud">
+    <div id="lap">Lap 1 / 3</div>
+    <div id="rank">1st / 4</div>
+  </div>
+  <div id="speed-bar"><div id="speed-fill"></div></div>
+
+  <div id="waiting" class="overlay">
+    <h2>Waiting for a phone…</h2>
+    <p>Scan the QR code on the menu screen, or steer with the ← → arrow keys.</p>
+  </div>
+
+  <div id="finish" class="overlay hidden">
+    <h2 id="finish-place">Finished!</h2>
+    <button id="restart">Race again</button>
+  </div>
+
+  <a id="back" href="/">← Menu</a>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WiiPhone</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <span class="logo">📱🎮</span>
+      <h1>WiiPhone</h1>
+    </div>
+    <p class="tagline">Your phone is the controller. Your computer runs the games.</p>
+
+    <div class="panel qr-panel">
+      <img id="qr" alt="QR code to open the controller on your phone" />
+      <div class="qr-meta">
+        <div>Scan with your phone's camera to connect.</div>
+        <code id="controller-url">loading…</code>
+        <div class="player-slots" id="slots"></div>
+      </div>
+    </div>
+
+    <div class="section-title">Games</div>
+    <div class="games-grid">
+      <a class="game-card" href="/games/mario-kart/index.html">
+        <div class="emoji">🏎️</div>
+        <h3>Mario Kart</h3>
+        <p>Tilt your phone to steer. Auto-accelerate, hit the dash pads for a boost.</p>
+      </a>
+      <div class="game-card soon">
+        <div class="emoji">🍉</div>
+        <h3>More coming soon</h3>
+        <p>Building this game by game.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/menu.js"></script>
+</body>
+</html>
