@@ -3,3 +3,7 @@ node_modules/
 .DS_Store
 npm-debug.log*
 test-results/
+
+# Local source-model downloads and converted packs
+/assets/
+/games/mario-kart/evidence/

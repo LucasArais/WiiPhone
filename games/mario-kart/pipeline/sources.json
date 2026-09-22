@@ -1,0 +1,112 @@
+[
+  {
+    "id": "mario",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/292062/",
+    "archive": "https://models.spriters-resource.com/media/assets/289/292062.zip?updated=1755498313",
+    "credits": [
+      "Nintendo",
+      "Mystie"
+    ],
+    "sha256": "7d82a0c42da66c4f3a25466db16feba84bfd10ab1d3d23ce863e0015e54b099c"
+  },
+  {
+    "id": "kart",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/293519/",
+    "archive": "https://models.spriters-resource.com/media/assets/290/293519.zip?updated=1755498662",
+    "credits": [
+      "Nintendo",
+      "RayK"
+    ],
+    "sha256": "729b92c512337974ec63057e0addfb94d5c6936c675111f16c9b6b6aa69a8591"
+  },
+  {
+    "id": "tires",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/353815/",
+    "archive": "https://models.spriters-resource.com/media/assets/351/353815.zip?updated=1755515616",
+    "credits": [
+      "Nintendo",
+      "BillyGaming964"
+    ],
+    "sha256": "9c45858c9e0d9936d0cb5e2b5631ee6fff821cfd977a4ab4957791ef662f193f"
+  },
+  {
+    "id": "stadium",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/293504/",
+    "archive": "https://models.spriters-resource.com/media/assets/290/293504.zip?updated=1755498653",
+    "credits": [
+      "Nintendo",
+      "RayK"
+    ],
+    "sha256": "76933029896b76f47836fef31e9acab2a46c33a22d6036aabb2751a1e1881b3e"
+  },
+  {
+    "id": "luigi",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/292063/",
+    "archive": "https://models.spriters-resource.com/media/assets/289/292063.zip?updated=1755498313",
+    "credits": [
+      "Nintendo",
+      "Mystie"
+    ],
+    "sha256": "f9845fc7a0aefe434dfcce0080864012036b2e379d92eddb0f1b4565d4b0c220"
+  },
+  {
+    "id": "peach",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/292016/",
+    "archive": "https://models.spriters-resource.com/media/assets/289/292016.zip?updated=1755498302",
+    "credits": [
+      "Nintendo",
+      "Mystie"
+    ],
+    "sha256": "aa1f458c788e4555c7ed3c5fc9b79804da514c03f160b31542b2f872a306f944"
+  },
+  {
+    "id": "yoshi",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/292542/",
+    "archive": "https://models.spriters-resource.com/media/assets/289/292542.zip?updated=1755498422",
+    "credits": [
+      "Nintendo",
+      "Mystie"
+    ],
+    "sha256": "b88dcbb82d4b72b5b9403446d74f55b8243919dcda3e1d58181568e6232c71ad"
+  },
+  {
+    "id": "toad",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/291880/",
+    "archive": "https://models.spriters-resource.com/media/assets/289/291880.zip?updated=1755498271",
+    "credits": [
+      "Nintendo",
+      "Mystie"
+    ],
+    "sha256": "1ff91829877ccc594edab6cea429be319fcb4fcaf22df374c4a98f3d5802e6e8"
+  },
+  {
+    "id": "bowser",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/292017/",
+    "archive": "https://models.spriters-resource.com/media/assets/289/292017.zip?updated=1755498302",
+    "credits": [
+      "Nintendo",
+      "Mystie"
+    ],
+    "sha256": "bb4c2a913f95aa4bd5f44ae8bd316ee765c9e2d8af9685bf0081f1478f754f75"
+  },
+  {
+    "id": "donkey-kong",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/293526/",
+    "archive": "https://models.spriters-resource.com/media/assets/290/293526.zip?updated=1757640020",
+    "credits": [
+      "Nintendo",
+      "RayK"
+    ],
+    "sha256": "906d11fe3af9b52c96afffd180c71c8a3dc4ba624b62c4b293112811758e6e71"
+  },
+  {
+    "id": "koopa",
+    "page": "https://models.spriters-resource.com/wii_u/mariokart8/asset/293527/",
+    "archive": "https://models.spriters-resource.com/media/assets/290/293527.zip?updated=1755498665",
+    "credits": [
+      "Nintendo",
+      "RayK"
+    ],
+    "sha256": "fec3fb8a78fe8c3e0c3ecbec37c3d83f70403f190c94286cc01e6bdb9154a2c9"
+  }
+]

@@ -1,22 +1,23 @@
-/** Public-distribution check: all optional assets are unavailable. Drive a full
- * one-lap race with real keyboard events; never write player/simulation state. */
+/** Drive a full lap using keyboard events, without simulation state writes.
+ * Default: optional assets blocked. KART_SOURCE=1: require the detailed 3D pack. */
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 const base=process.env.KART_URL||'https://localhost:8443';
-const out=new URL('../test-results/kart/',import.meta.url);
+const sourcePack=process.env.KART_SOURCE==='1';
+const out=new URL(sourcePack?'../test-results/kart-source/':'../test-results/kart/',import.meta.url);
 await mkdir(out,{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true});
-const report={at:new Date().toISOString(),method:'Optional assets blocked; actual keyboard events and a geometric path follower. Read-only race inspection. No simulation state writes. Not a physical-phone test.',checks:[],errors:[]};
+const report={at:new Date().toISOString(),method:(sourcePack?'Source 3D pack enabled;':'Optional assets blocked;')+' actual keyboard events and a geometric path follower. Read-only race inspection. No simulation state writes. Not a physical-phone test.',checks:[],errors:[]};
 try{
   const context=await browser.newContext({ignoreHTTPSErrors:true,viewport:{width:1280,height:720}});
-  await context.route(/\/(assets|audio)\//,route=>route.fulfill({status:404,body:'Optional local asset not included in public distribution'}));
+  if(!sourcePack) await context.route(/\/(assets|audio)\//,route=>route.fulfill({status:404,body:'Optional local asset not included in public distribution'}));
   const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
   const pairing=await (await context.request.get(base+'/api/session')).json(); assert.ok(pairing.controllerUrl.endsWith('/controller.html') && pairing.qrDataUrl.startsWith('data:image/png'));
   await page.goto(base+'/games/mario-kart/?evidence=1');await page.waitForFunction(()=>window.__kart?.assets,null,{timeout:60000});
-  assert.equal(await page.evaluate(()=>__kart.sourceCourse),false);
-  assert.equal(await page.evaluate(()=>__kart.assets.loaded),0);
-  assert.equal(await page.evaluate(()=>__kart.karts.filter(k=>k.source==='procedural').length),8);
+  assert.equal(await page.evaluate(()=>__kart.sourceCourse),sourcePack);
+  assert.equal(await page.evaluate(()=>__kart.assets.loaded),sourcePack?8:0);
+  assert.equal(await page.evaluate(sourcePack=>__kart.karts.filter(k=>k.source===(sourcePack?'glb':'procedural')).length,sourcePack),8);
   assert.equal(await page.locator('.character').count(),8);
   await page.screenshot({path:new URL('menu.png',out).pathname});
   await page.keyboard.press('ArrowRight');assert.equal(await page.locator('#chosen').textContent(),'Luigi');
@@ -33,7 +34,7 @@ try{
   await page.waitForFunction(()=>__kart.audioState.state==='running');
   await page.click('#mute');assert.equal(await page.evaluate(()=>__kart.audioState.enabled),false);
   await page.click('#mute');assert.equal(await page.evaluate(()=>__kart.audioState.enabled),true);
-  report.checks.push('pairing QR','eight procedural racers and generated track','driver and lap selection','countdown, acceleration and braking','pause and resume','synth audio and mute without sample pack');
+  report.checks.push('pairing QR',sourcePack?'eight imported racers and measured stadium':'eight procedural racers and generated track','driver and lap selection','countdown, acceleration and braking','pause and resume','synth audio and mute without sample pack');
   await page.evaluate(async()=>window.geometry=await import('./track.js'));
   await page.keyboard.down('KeyZ');let direction=0,seenAnti=false,seenGlider=false;const start=Date.now();
   while(Date.now()-start<180000){

@@ -1,5 +1,5 @@
-/** Official promotional portraits. Provenance and individual URLs are retained
- * in item-art/SOURCES.md; all images are served locally, without a CDN at play. */
+import { artworkURL } from './asset-links.js';
+/** Official promotional portraits; provenance is retained in item-art/SOURCES.md. */
 export function itemPortraits(){
- return Object.fromEntries(['mushroom','green','red','banana','blue','star'].map(type=>[type,`<img src="./item-art/${type}.png" alt="${type}"/>`]));
+ return Object.fromEntries(['mushroom','green','red','banana','blue','star'].map(type=>[type,`<img src="${artworkURL(`item-art/${type}.png`)}" onerror="this.onerror=null;this.src='./item-art/${type}.png'" alt="${type}"/>`]));
 }

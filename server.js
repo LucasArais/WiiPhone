@@ -55,6 +55,7 @@ function createApp() {
   app.use(express.static(path.join(__dirname, 'public')));
   app.use('/games', express.static(path.join(__dirname, 'games')));
   app.use('/core', express.static(path.join(__dirname, 'core')));
+  app.use('/assets', express.static(path.join(__dirname, 'assets')));
   app.use('/vendor/three', express.static(path.join(__dirname, 'node_modules/three/build')));
   app.use('/vendor/three-examples', express.static(path.join(__dirname, 'node_modules/three/examples/jsm')));
 

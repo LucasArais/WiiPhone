@@ -11,7 +11,8 @@
     "start": "node server.js",
     "test:unit": "node --test games/mario-kart/*.test.mjs",
     "test:kart-browser": "node tests/kart-browser.mjs",
-    "test:kart-phone": "node tests/kart-phone.mjs"
+    "test:kart-phone": "node tests/kart-phone.mjs",
+    "setup:kart-assets": "node scripts/setup-kart-assets.mjs"
   },
   "license": "MIT",
   "dependencies": {

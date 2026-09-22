@@ -1,3 +1,4 @@
+import { loadArtwork } from "./asset-links.js";
 import { buildLanding, landingLightMap } from "./stadium-landing.js";
 import { buildPlanting } from "./stadium-planting.js";
 import { buildLandingPylons } from "./stadium-pylons.js";
@@ -146,8 +147,8 @@ export function buildWorld(scene) {
     roughness: 1,
   });
   // Keep a local procedural fallback until the authored turf image is ready.
-  new THREE.ImageLoader().load(
-    "./art/turf-v1.png",
+  loadArtwork(new THREE.ImageLoader(),
+    "art/turf-v1.png",
     (image) => {
       // WebGL texture storage keeps its original dimensions. A differently
       // sized image needs a new texture object, not an in-place image swap.
@@ -167,8 +168,6 @@ export function buildWorld(scene) {
       shoulderFallback.dispose();
       grassTex.dispose();
     },
-    undefined,
-    () => {},
   );
   grassTex.anisotropy = 16;
   const lawn = mesh(

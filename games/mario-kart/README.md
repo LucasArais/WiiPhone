@@ -33,15 +33,31 @@ Perder a conexão pausa a corrida; reconecte e pressione 2 ou use Enter e teclad
 
 ## Imagens e referência
 
-Todos os PNGs publicados na pasta Mario Kart da referência estão incluídos:
-`item-art/{banana,blue,green,mushroom,red,star}.png` e `art/turf-v1.png`,
-além do logo SVG. Os itens aparecem no HUD e na roleta de caixas.
-Não é necessário baixar imagens durante o jogo.
+As imagens de itens, logo e grama usam links diretos de
+`raw.githubusercontent.com/pattssun/OpenWii/main/games/mario-kart/`.
+Se o carregamento falhar, as cópias locais são usadas automaticamente.
 
-A referência pública não inclui os modelos, fontes, retratos e gravações do
-jogo original usados no vídeo de demonstração. Nesta versão, os personagens,
-pista e sons usam a implementação procedural pública, como em um clone limpo
-do OpenWii. Não é uma reprodução idêntica daquele vídeo.
+O pacote 3D detalhado está instalado nesta máquina: os oito pilotos, kart,
+pneus e Mario Kart Stadium, convertidos das mesmas fontes indicadas no OpenWii.
+Os arquivos GLB, a rota medida e `manifest.json` ficam em `assets/mario-kart/`.
+O jogo carrega esse pacote automaticamente; `?sourceCourse=0` permite comparar
+com a pista procedural. Arquivos ausentes mantêm o fallback procedural.
+
+Os downloads e modelos convertidos são locais e estão no `.gitignore`, como
+na referência. Para reproduzir em outra máquina, com o servidor rodando,
+Python 3 e Google Chrome instalados:
+
+```sh
+npm run setup:kart-assets
+# Se o servidor usa outra porta:
+KART_BUILD_ORIGIN=https://localhost:8445 npm run setup:kart-assets
+```
+
+O script verifica os hashes dos arquivos de origem, usa os conversores do
+OpenWii e só ativa o manifesto após terminar todas as conversões. As fontes,
+links de download e créditos estão em [pipeline/sources.json](pipeline/sources.json).
+Fontes tipográficas e gravações do jogo original continuam opcionais e não
+foram baixadas.
 
 Proveniência das imagens: [item-art/SOURCES.md](item-art/SOURCES.md) e
 [art/README.md](art/README.md). Código e licença original:
@@ -54,6 +70,8 @@ npm run test:unit
 # Com o servidor rodando e Google Chrome instalado:
 npm run test:kart-browser
 npm run test:kart-phone
+# Verificar o pacote detalhado instalado:
+KART_SOURCE=1 npm run test:kart-browser
 ```
 
 O teste de navegador dirige uma volta com eventos reais de teclado, verifica
